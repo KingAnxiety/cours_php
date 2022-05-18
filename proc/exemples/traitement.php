@@ -5,11 +5,46 @@ if(isset($_POST['soumis'])){
     $age = $_POST["age"];
     $message = $_POST['message'];
     $module = $_POST['module'];
-    echo "Nom: $nom , Age: $age, Message: $message, Module: $module";
+    $pays_tab = $_POST['pays'];
+    $loisir = $_POST['loisir'];
+    $marque = $_POST['marque'];
+    $genre = $_POST['genre'];
+    $secret = $_POST['secret'];
+
+    echo "Nom: $nom , Age: $age, Message: $message, Module: $module, Genre: $genre, Secret: $secret";
+    echo "<ul>";
+    foreach ($pays_tab as  $pays) {
+        echo "<li>$pays</li>";
+    }
+    echo "</ul>";
+
+    if(isset($_POST['loisir'])){
+
+        echo"<ul>";
+        foreach($loisir as $l){
+            echo"<li>$l</li>";
+        }
+        echo"</ul>";
+    }
+
+    if(isset($_POST['marque'])){
+
+        echo"<ol>";
+        foreach($marque as $k => $m){
+            echo"<li>".str_replace(['"',"'"], "", $k)."</li>";
+        }
+        echo"</ol>";
+    }
+    echo "<pre>";
+    var_dump($_FILES);
+    echo "</pre>";
+    if((isset($_FILES['image']['name']) && $_FILES['image']['error'] == UPLOAD_ERR_OK)){
+        $chemin = 'images/';
+        move_uploaded_file($_FILES['image']['tmp_name'],$chemin.$_FILES['image']['name']);
+    }else{
+        echo "Erreur de téléchargement";
+    }
 }
-// echo "<pre>";
-// var_dump($_POST);
-// echo "</pre>";
 
 
 ?>
